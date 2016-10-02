@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
  
-const char* ssid = "MOVISTAR_5F22";
-const char* password = "aCTuXmJGcNUjmtychhMX";
+const char* ssid = "INSERTAR WIFI_SSID";
+const char* password = "INSERTAR PASSWORD";
  
 int ledPin = 13; // GPIO13
 WiFiServer server(80);

@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char* ssid = "MOVISTAR_5F22";
-const char* password = "aCTuXmJGcNUjmtychhMX";
+const char* ssid = "INSERTAR WIFI_SSID";
+const char* password = "INSERTAR PASSWORD";
 
 const char* thingSpeakAddress = "api.thingspeak.com"; // Your domain
 const int httpPort = 80;
