@@ -1,4 +1,4 @@
-# Planta-Twittera
+# Planta Twittera
 
 Se trata de un taller práctico donde se da una introducción al *Internet de las cosas* mediante la realización de varios ejemplos con la placa de desarrollo NodeMCU y el chip WiFi de bajo coste ESP8266.
 
