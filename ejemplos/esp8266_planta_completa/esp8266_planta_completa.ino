@@ -3,8 +3,8 @@
 #include <ESP8266WiFi.h>
 #include <SimpleDHT.h>
 
-const char* ssid = "Mis vecinos apestan";
-const char* password = "LaContrasenyaDelWifiEsMuySegura";
+const char* ssid = "INSERTAR_SSID_WIFI";
+const char* password = "CONTRASEÑA_WIFI";
 
 const char* thingSpeakAddress = "api.thingspeak.com"; // Your domain
 const int httpPort = 80;
