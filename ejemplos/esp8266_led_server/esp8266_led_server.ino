@@ -1,22 +1,30 @@
-#include <ESP8266WiFi.h>
+/* ************************************************* *
+ * -------- EJEMPLO SERVIDOR LED THINGSPEAK ---------- *
+ * ----------- Jaime Laborda Macario --------------- *
+ * ------------Taller Planta Twittera IoT----------- *
+ *  https://github.com/jaimelaborda/Planta-Twittera  *
+ * ************************************************* */
+
+#include <ESP8266WiFi.h> //Incluimos la librería para del WiFi
  
+//Credenciales del WiFi
 const char* ssid = "INSERTAR WIFI_SSID";
 const char* password = "INSERTAR PASSWORD";
  
-int ledPin = 13; // GPIO13
+int ledPin = D0; // D0 is the LEDBUILDIN (Active LOW)
 WiFiServer server(80);
  
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200); //Inicio el puerto serie 
   delay(10);
  
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
  
-  // Connect to WiFi network
+  // Conecto con la red WiFi en modo estación (STA)
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
+  Serial.print("Conectando a ");
   Serial.println(ssid);
  
   WiFi.begin(ssid, password);
@@ -26,14 +34,14 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("WiFi connected");
+  Serial.println("WiFi conectado");
  
-  // Start the server
+  // Inicializo el servidor
   server.begin();
-  Serial.println("Server started");
+  Serial.println("Servidor iniciado");
  
-  // Print the IP address
-  Serial.print("Use this URL to connect: ");
+  // Muestro la IP local asignada. URL del servidor
+  Serial.print("Usa esta URL para conectar al servidor: ");
   Serial.print("http://");
   Serial.print(WiFi.localIP());
   Serial.println("/");
@@ -41,24 +49,24 @@ void setup() {
 }
  
 void loop() {
-  // Check if a client has connected
+  // Compruebo si hay un cliente disponible (una petición)
   WiFiClient client = server.available();
   if (!client) {
-    return;
+    return; // En caso de no haber un cliente, no hago nada
   }
  
-  // Wait until the client sends some data
-  Serial.println("new client");
+  // Espero hasta que el cliente realice una petición
+  Serial.println("¡Nuevo cliente!");
   while(!client.available()){
     delay(1);
   }
  
-  // Read the first line of the request
-  String request = client.readStringUntil('\r');
-  Serial.println(request);
-  client.flush();
+  // Leo la primera linea de la petición del cliente
+  String request = client.readStringUntil('\r'); // Leo hasta retorno de carro
+  Serial.println(request); //Imprimo la petición
+  client.flush(); //Limpio el buffer
  
-  // Match the request
+  // Interpreto lo que he recibido
  
   int value = LOW;
   if (request.indexOf("/LED=ON") != -1)  {
@@ -70,30 +78,31 @@ void loop() {
     value = LOW;
   }
  
-// Set ledPin according to the request
-//digitalWrite(ledPin, value);
+// Pongo ledPin al valor que ha solicitado el cliente en la petición
  
-  // Return the response
+  // Devuelvo la respuesta al cliente -> Todo ha ido bien, el mensaje ha sido interpretado correctamente
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println(""); //  do not forget this one
-  client.println("<!DOCTYPE HTML>");
+  
+  // A partir de aquí creo la página en raw HTML
+  client.println("<!DOCTYPE HTML>"); 
   client.println("<html>");
  
-  client.print("Led pin is now: ");
+  client.print("El LED está:  ");
  
   if(value == HIGH) {
-    client.print("On");
+    client.print("ON");
   } else {
-    client.print("Off");
+    client.print("OFF");
   }
   client.println("<br><br>");
-  client.println("<a href=\"/LED=ON\"\"><button>Turn On </button></a>");
-  client.println("<a href=\"/LED=OFF\"\"><button>Turn Off </button></a><br />");  
+  client.println("<a href=\"/LED=ON\"\"><button>Encender </button></a>"); // Los botones con enlace
+  client.println("<a href=\"/LED=OFF\"\"><button>Apagar </button></a><br />");  
   client.println("</html>");
  
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Cliente desconectado"); // Nos desconectamos del cliente
   Serial.println("");
  
 }
