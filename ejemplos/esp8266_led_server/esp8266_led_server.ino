@@ -89,7 +89,7 @@ void loop() {
   client.println("<!DOCTYPE HTML>"); 
   client.println("<html>");
  
-  client.print("El LED está:  ");
+  client.print("El LED esta:  ");
  
   if(value == HIGH) {
     client.print("ON");

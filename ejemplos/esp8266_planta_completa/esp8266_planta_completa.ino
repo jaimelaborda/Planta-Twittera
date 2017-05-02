@@ -1,4 +1,10 @@
-/*Codigo Treefi*/
+/* ************************************************* *
+ * ----- PLANTA TWITTERA COMPLETA THINGSPEAK ------- *
+ * ----------- Jaime Laborda Macario --------------- *
+ * ------------Taller Planta Twittera IoT----------- *
+ *  https://github.com/jaimelaborda/Planta-Twittera  *
+ * ************************************************* */
+
 
 #include <ESP8266WiFi.h>
 #include <SimpleDHT.h>
@@ -8,8 +14,8 @@ const char* password = "CONTRASEÑA_WIFI";
 
 const char* thingSpeakAddress = "api.thingspeak.com"; // Your domain
 const int httpPort = 80;
-String thingtweetAPIKey = "NM7RO7OSO6YQQONN";
-String THINGSPEAK_API_KEY = "4HUUELKEO5H3NRGX";
+String thingtweetAPIKey = "XXXXXXXXXXXXXXX";
+String THINGSPEAK_API_KEY = "XXXXXXXXXXXXX";
 
 int pinDHT11 = 2;
 
